@@ -2,6 +2,7 @@ const webpack = require('webpack');
 const path = require('path');
 const fs = require('fs');
 const Dotenv = require('dotenv-webpack');
+const NodemonPlugin = require('nodemon-webpack-plugin');
 
 const nodeModules = {};
 fs.readdirSync('node_modules')
@@ -22,7 +23,7 @@ module.exports = {
   },
   output: {
     filename: 'server.js',
-    path: path.resolve(__dirname, 'dist')
+    path: path.resolve(__dirname, 'build')
   },
   optimization: {
     minimize: false //Update this to true or false
@@ -35,7 +36,8 @@ module.exports = {
         systemvars: true, // load all the predefined 'process.env' variables which will trump anything local per dotenv specs.
         silent: true, // hide any errors
         defaults: false
-    })
+    }),
+    new NodemonPlugin()
   ],
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.

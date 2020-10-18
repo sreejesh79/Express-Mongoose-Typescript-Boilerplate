@@ -3,12 +3,9 @@
     "version": "1.0.0",
     "main": "dist/server.js",
     "scripts": {
-        "prebuild": "tslint -c tslint.json -p tsconfig.json --fix",
-        "serve": "nodemon dist/server.js",
+        "start": "webpack --watch --config webpack.config.js",
         "build:prod": "webpack --config webpack.config.prod.js",
-        "build": "webpack --config webpack.config.js",
-        "watch": "webpack --watch --config webpack.config.js",
-        "watch:prod": "webpack --watch --config webpack.config.prod.js && npm run serve"
+        "build": "webpack --config webpack.config.js"
     },
     "dependencies": {
         "@types/compression": "^1.7.0",
@@ -37,6 +34,7 @@
         "webpack-watch-server": "^1.2.1"
     },
     "devDependencies": {
+        "nodemon-webpack-plugin": "^4.3.2",
         "uglifyjs-webpack-plugin": "^2.2.0",
         "webpack-cli": "^3.3.11"
     }
