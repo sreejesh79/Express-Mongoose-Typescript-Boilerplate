@@ -11,7 +11,7 @@ const UserSchema: Schema = new Schema({
     password: {type: Types.String, required: true},
     email: {type: Types.String, unique: true, required: true, index: true},
     mobile: {type: Types.String, unique: true, required: true, index: true},
-    firstName: { type: Types.String, index: true, text: true },
+    firstName: { type: Types.String, index: true},
     lastName: { type: Types.String, index: true},
     token: { type: Types.String, index: true },
     active: {type: Types.Number, enum:[0,1], default:0},
@@ -55,6 +55,7 @@ UserSchema.pre<any>('findOneAndUpdate', function(next : any) {
 
 UserSchema.set('toJSON', {
     transform(doc, ret, opt) {
+        console.log('deleting');
         delete ret['password']
         return ret
     }

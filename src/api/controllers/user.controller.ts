@@ -5,6 +5,7 @@ import { IResponse } from "types";
 export class UserController {
     
   public static create = async (req: Request, res: Response): Promise<any> => {
+    console.log('in create');
     const response: IResponse = await UserService.create(req.body);
     return res.status(response.status).json(response);
   }

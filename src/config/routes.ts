@@ -6,7 +6,7 @@ class RouterConfig {
 
     public static routes(router: any): any {
         router.get("/", MainController.index);
-        router.get(`${this.API_PATH}/user`, userRouter); 
+        router.use(`${this.API_PATH}/user`, userRouter); 
     }
 }
 

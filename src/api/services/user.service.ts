@@ -28,6 +28,7 @@ class UserService {
             const response: IResponse = Responses[200](createUser);
            return response;
         } catch (e) {
+            console.log(e);
             return Responses[500](e.message);
         }
     }
@@ -35,13 +36,13 @@ class UserService {
     public read = async (id?: string): Promise<IResponse> => {
         try {
             if (!id && id != '') {
-                const users: Array<{}> = await User.find().lean();
+                const users: Array<IUserModel> = await User.find();
                 const response: IResponse = Responses[200](users);
                 return response;
 
             }else {
-                const user: {} = await User.findById(id).lean();
-                if (user.hasOwnProperty('_id')) {
+                const user: IUserModel = await User.findById(id);
+                if (user && user.hasOwnProperty('_id')) {
                     return Responses[200](user);
                 } else {
                     return Responses[404]('User not found');

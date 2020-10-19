@@ -46,7 +46,7 @@ class App {
         mongoose.Promise = global.Promise;
         const MONGO_DB: string = process.env.MONGO_URL
         mongoose.set('useCreateIndex', true);
-        const db: any = mongoose.connect(MONGO_DB, { useNewUrlParser: true });
+        const db: any = mongoose.connect(MONGO_DB, { useNewUrlParser: true, useUnifiedTopology: true, useFindAndModify: false });
         const mongo = mongoose.connection
         mongo.once("connected", async () => {
             console.log(`Connected to database at ${MONGO_DB}`);
