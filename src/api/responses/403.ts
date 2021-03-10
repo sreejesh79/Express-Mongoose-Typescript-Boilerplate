@@ -1,8 +1,8 @@
 import { IResponse } from "types";
 
 export class Forbidden implements IResponse {
-    error: boolean = false;
-    status: number = 200;
+    error: boolean = true;
+    status: number = 403;
     message: string = "Forbidden"
     
     constructor(msg: string = '') {

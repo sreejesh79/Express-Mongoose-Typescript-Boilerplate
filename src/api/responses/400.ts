@@ -1,8 +1,8 @@
 import { IResponse } from "types";
 
 export class BadRequest implements IResponse {
-    error: boolean = false;
-    status: number = 200;
+    error: boolean = true;
+    status: number = 400;
    message: string = "Bad Request"
     
 }
