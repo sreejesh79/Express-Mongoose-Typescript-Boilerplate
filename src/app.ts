@@ -8,6 +8,8 @@ import helmet from 'helmet';
 import Bootstrap from 'config/bootstrap';
 import RouterConfig from 'config/routes';
 import Middleware from './config/middleware';
+import * as fs from 'fs';
+import * as path from 'path';
 
 class App {
 
@@ -16,9 +18,12 @@ class App {
     protected port
     constructor() {
         this.app = express(); //run the express instance and store in app
-        this.port = process.env.PORT;
+        this.port = process.env.PORT || 4000;
         this.config(this.app);
-        this.setMongoConfig();
+       // this.setMongoConfig();
+
+       this.listen();
+
 
     }
 
@@ -91,10 +96,28 @@ class App {
 
     public listen() {
         this.app.listen(this.port, () => {
-            console.log(`App listening on the http://localhost:${this.port}`)
+            console.log(`App listening on the http://localhost:${this.port}`);
+            this.initSocket();
         })
     }
+
+    public initSocket = () => {
+        let http = require('http').Server(this.app);
+        let io = require('socket.io')(http);
+        let ss = require('socket.io-stream');
+        var stream = ss.createStream();
+
+        io.on('connection', (socket:any) => {
+            console.log('one user connected');
+            ss(socket).emit('video-stream', stream);
+            stream.pipe(fs.createWriteStream(path.join(__dirname,'video.mp4')));
+        })
+    }
+
+
 
 }
 
 const server: App = new App();
+
+
